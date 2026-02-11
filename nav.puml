@@ -1,0 +1,48 @@
+@startuml
+title 画面遷移図（Tournament内：編集/削除を追加）
+
+left to right direction
+skinparam shadowing false
+
+state "ホーム" as Home
+state "大会作成画面" as Create
+state "大会リスト一覧画面" as List
+
+Home --> Create : 大会を作成
+Home --> List : 大会リストを見る
+
+Create --> Tournament : 作成完了
+List --> Tournament : 大会を選択
+
+state "大会画面（Tournament）" as Tournament {
+  [*] --> Overview : 初期表示
+
+  state "概要" as Overview
+  state "参加者追加/一覧" as Participants
+  state "検寸（魚登録/一覧）" as Measure
+  state "ランキング" as Ranking
+  state "設定" as Settings
+
+  ' --- 追加：編集/削除フロー ---
+  state "魚記録詳細" as FishDetail
+  state "魚記録編集" as FishEdit
+  state "魚記録削除確認" as FishDeleteConfirm
+
+  state "参加者詳細" as ParticipantDetail
+  state "参加者削除確認" as ParticipantDeleteConfirm
+
+  Overview --> Participants : 参加者
+  Overview --> Measure : 検寸
+  Overview --> Ranking : ランキング
+  Overview --> Settings : 設定
+
+  ' 魚記録：一覧→詳細→編集/削除
+  Measure --> FishDetail : 記録を選択
+  FishDetail --> FishEdit : 修正
+  FishDetail --> FishDeleteConfirm : 削除
+  FishEdit --> FishDetail : 保存
+  FishDeleteConfirm --> Measure : 削除確定
+
+  ' 参加者：一覧→詳細→削除
+  Participants --> ParticipantDetail : 参加者を選択
+  ParticipantDetail --> ParticipantDele
