@@ -4,12 +4,10 @@ title 画面遷移図（Tournament内：編集/削除を追加）
 left to right direction
 skinparam shadowing false
 
-state "ホーム" as Home
-state "大会作成画面" as Create
 state "大会リスト一覧画面" as List
+state "大会作成画面" as Create
 
-Home --> Create : 大会を作成
-Home --> List : 大会リストを見る
+List --> Create : 大会を作成
 
 Create --> Tournament : 作成完了
 List --> Tournament : 大会を選択
@@ -45,4 +43,4 @@ state "大会画面（Tournament）" as Tournament {
 
   ' 参加者：一覧→詳細→削除
   Participants --> ParticipantDetail : 参加者を選択
-  ParticipantDetail --> ParticipantDele
+  ParticipantDetail --> ParticipantDeleteConfirm
